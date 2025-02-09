@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+    <header class="header" style="position: fixed; width: 100%; top: 0; left: 0; right: 0; background: white; z-index: 1000;">
         <div class="container">
             <nav class="navbar">
                 <div class="logo" style="margin-right: 50px; margin-left: 50px;">
@@ -34,9 +34,60 @@
                 </ul>
             </nav>
         </div>
+
+        <style>
+            @media screen and (max-width: 768px) {
+                .header {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    z-index: 1000;
+                }
+
+                .nav-links {
+                    display: none;
+                    position: fixed;
+                    top: 70px;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    flex-direction: column;
+                    padding: 20px;
+                    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                }
+
+                .nav-links.active {
+                    display: flex;
+                }
+
+                .nav-links li {
+                    margin: 15px 0;
+                }
+
+                .mobile-nav {
+                    display: block;
+                }
+
+                .hamburger {
+                    display: flex;
+                }
+
+                main {
+                    margin-top: 70px;
+                }
+            }
+
+            @media screen and (min-width: 769px) {
+                .mobile-nav {
+                    display: none;
+                }
+            }
+        </style>
     </header>
 
-    <main>
+    <main style="margin-top: 70px;">
         <section class="contact" style="padding: 5rem 0; background: linear-gradient(to bottom, #f8fafc, #fff);">
             <div class="container">
                 <div class="contact-content" style="max-width: 800px; margin: 0 auto; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">

@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
+    <header class="header" style="position: fixed; width: 100%; top: 0; left: 0; right: 0; background: white; z-index: 1000;">
         <div class="container">
             <nav class="navbar">
                 <div class="logo" style="margin-right: 50px; margin-left: 50px;">
@@ -37,6 +37,15 @@
 
         <style>
             @media screen and (max-width: 768px) {
+                .header {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: white;
+                    z-index: 1000;
+                }
+
                 .nav-links {
                     display: none;
                     position: fixed;
