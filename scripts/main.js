@@ -1,58 +1,86 @@
-// Mobile menu toggle
-document.addEventListener('DOMContentLoaded', function() {
+// Mobile menu toggle using modern syntax and animation
+document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
 
-    hamburger.addEventListener('click', function() {
+    const toggleMenu = () => {
         navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
-    });
+        
+        // Add smooth animation
+        navLinks.style.transition = 'transform 0.3s ease-in-out';
+    };
+
+    hamburger?.addEventListener('click', toggleMenu);
 });
 
-// Form validation
+// Form validation with better UX
 const contactForm = document.querySelector('.contact-form');
 if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    const validateForm = async (e) => {
         e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
         
-        if (!name || !email) {
-            alert('Please fill in all required fields');
-            return;
+        const formData = new FormData(contactForm);
+        const name = formData.get('name');
+        const email = formData.get('email');
+
+        // Custom validation messages
+        const messages = {
+            required: 'Please fill in all required fields',
+            email: 'Please enter a valid email address',
+            success: 'Message sent successfully!'
+        };
+
+        try {
+            if (!name || !email) {
+                throw new Error(messages.required);
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                throw new Error(messages.email); 
+            }
+
+            // Here you would typically send to server
+            // await sendToServer(formData);
+            
+            // Show success message
+            showNotification(messages.success, 'success');
+            contactForm.reset();
+
+        } catch (error) {
+            showNotification(error.message, 'error');
         }
+    };
+
+    const showNotification = (message, type) => {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
         
-        if (!isValidEmail(email)) {
-            alert('Please enter a valid email address');
-            return;
-        }
+        document.body.appendChild(notification);
         
-        // Form is valid, can submit to server here
-        alert('Message sent successfully!');
-        contactForm.reset();
-    });
+        // Remove after 3 seconds
+        setTimeout(() => notification.remove(), 3000);
+    };
+
+    contactForm.addEventListener('submit', validateForm);
 }
 
-// Email validation helper
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
+// Modern typewriter effect with async/await
+const typewriterEffect = async (element, text, speed = 100) => {
+    if (!element) return;
 
-// Typewriter effect for hero section
+    element.textContent = '';
+    
+    for (const char of text) {
+        element.textContent += char;
+        await new Promise(resolve => setTimeout(resolve, speed));
+    }
+};
+
 const typewriterText = document.querySelector('.typewriter');
 if (typewriterText) {
     const text = typewriterText.textContent;
-    typewriterText.textContent = '';
-    let i = 0;
-    
-    function typeWriter() {
-        if (i < text.length) {
-            typewriterText.textContent += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 100);
-        }
-    }
-    
-    typeWriter();
+    typewriterEffect(typewriterText, text);
 }
